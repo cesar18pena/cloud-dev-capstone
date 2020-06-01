@@ -1,0 +1,14 @@
+version: "3"
+services:
+  reverse_proxy:
+    build:
+      context: .
+    image: cesar18pena/reverse-proxy
+  backend_user:
+    build:
+      context: ../../restapi-user
+    image: cesar18pena/user-service
+  backend_feed:
+    build:
+      context: ../../restapi-feed
+    image: alvim/udacity-restapi-feed
