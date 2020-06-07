@@ -6,9 +6,5 @@ services:
     image: cesar18pena/reverse-proxy
   backend_user:
     build:
-      context: ../../restapi-user
+      context: ../../user-service
     image: cesar18pena/user-service
-  backend_feed:
-    build:
-      context: ../../restapi-feed
-    image: alvim/udacity-restapi-feed
