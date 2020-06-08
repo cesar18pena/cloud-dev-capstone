@@ -3,7 +3,7 @@ import { config } from "./config/config";
 
 const c = config.dev;
 
-console.log("Values from config dev" + JSON.stringify(c));
+console.log("Values from config dev in anime service" + JSON.stringify(c));
 
 // Instantiate new Sequelize instance!
 export const sequelize = new Sequelize({
