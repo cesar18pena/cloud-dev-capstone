@@ -7,30 +7,32 @@ services:
     restart: always
     depends_on:
       - user-service
+      - anime-service
 
   user-service:
     image: cesar18pena/user-service
     environment:
-      POSTGRESS_USERNAME: user
-      POSTGRESS_PASSWORD: password
-      POSTGRESS_DB: db
-      POSTGRESS_HOST: postgres
+      POSTGRESS_USERNAME: $POSTGRESS_USERNAME
+      POSTGRESS_PASSWORD: $POSTGRESS_PASSWORD
+      POSTGRESS_DB: $POSTGRESS_DB
+      POSTGRESS_HOST: $POSTGRESS_HOST
       AWS_REGION: $AWS_REGION
       AWS_PROFILE: $AWS_PROFILE
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
       URL: "http://localhost:8100"
-    depends_on:
-      - postgresql_db
 
-  postgresql_db:
-    container_name: postgres
+  anime-service:
+    image: cesar18pena/anime-service
+    volumes:
+      - $HOME/.aws:/root/.aws
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=db
-    image: postgres
-    ports:
-      - 5432:5432
-    logging:
-      driver: "none"
+      POSTGRESS_USERNAME: $POSTGRESS_USERNAME
+      POSTGRESS_PASSWORD: $POSTGRESS_PASSWORD
+      POSTGRESS_DB: $POSTGRESS_DB
+      POSTGRESS_HOST: $POSTGRESS_HOST
+      AWS_REGION: $AWS_REGION
+      AWS_PROFILE: $AWS_PROFILE
+      AWS_BUCKET: $AWS_BUCKET
+      JWT_SECRET: $JWT_SECRET
+      URL: "http://localhost:8100"
