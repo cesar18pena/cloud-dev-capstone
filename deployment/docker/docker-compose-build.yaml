@@ -8,3 +8,7 @@ services:
     build:
       context: ../../user-service
     image: cesar18pena/user-service
+  backend_anime:
+    build:
+      context: ../../anime-service
+    image: cesar18pena/anime-service
