@@ -16,12 +16,12 @@ before_install:
   - sudo mv ./kubectl /usr/local/bin/kubectl
 
 install:
-  - docker-compose -f cloud-dev-capstone/docker/docker-compose-build.yaml build --parallel
+  - docker-compose -f deployment/docker/docker-compose-build.yaml build --parallel
 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
     echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin ;
-    docker-compose -f cloud-dev-capstone/docker/docker-compose-build.yaml push ;
+    docker-compose -f deployment/docker/docker-compose-build.yaml push ;
     fi
 
 notifications:
