@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: backend-user
-  name: backend-user
+    service: backend-anime
+  name: backend-anime
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      service: backend-user
+      service: backend-anime
   template:
     metadata:
       labels:
-        service: backend-user
+        service: backend-anime
     spec:
       containers:
-        - image: cesar18pena/user-service
-          name: backend-user
+        - image: cesar18pena/backend-anime
+          name: backend-feed
           imagePullPolicy: Always
           resources:
             requests:
@@ -31,6 +31,21 @@ spec:
                 configMapKeyRef:
                   name: env-config
                   key: URL
+            - name: AWS_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: AWS_BUCKET
+            - name: AWS_PROFILE
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: AWS_PROFILE
+            - name: AWS_REGION
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: AWS_REGION
             - name: JWT_SECRET
               valueFrom:
                 configMapKeyRef:
@@ -56,4 +71,12 @@ spec:
                 secretKeyRef:
                   name: env-secret
                   key: POSTGRESS_USERNAME
+          volumeMounts:
+            - name: aws-secret
+              mountPath: "/root/.aws/"
+              readOnly: true
       restartPolicy: Always
+      volumes:
+        - name: aws-secret
+          secret:
+            secretName: aws-secret
