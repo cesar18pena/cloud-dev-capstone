@@ -4,11 +4,11 @@ services:
     build:
       context: .
     image: cesar18pena/reverse-proxy
-  backend_user:
+  user-service:
     build:
       context: ../../user-service
     image: cesar18pena/user-service
-  backend_anime:
+  anime-service:
     build:
       context: ../../anime-service
     image: cesar18pena/anime-service
