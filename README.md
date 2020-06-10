@@ -44,3 +44,42 @@ source ~/.zshrc
 ```
 
 *Note: I personally use ZSH terminal in case you use BASH terminal , you will need to enter those values in your `.bash_profile`*
+
+
+### Setup Docker Environment
+
+- First build the images: 
+  - `docker-compose -f docker-compose-build.yaml build --parallel`
+  - ![Building-images](screenshots/building-images.png)  
+  
+- Second list your docker images to check if they have been built:
+  - `docker images` 
+   
+![Build-images](screenshots/build-images.png)  
+
+- Third Run your docker containers: 
+  - `docker-compose up`
+  - To exit run `control + C`  
+
+![Running-containers](screenshots/running-images.png)  
+
+- Fourth push your docker images:
+  - `docker-compose -f docker-compose-build.yaml push`  
+  
+- Fifth check your Docker Hub account to check if the images were uploaded:
+![DockerHub](screenshots/docker-hub-published-images.png)  
+
+### Create a Kubernetes Cluster on Amazon EKS using eksctl
+Copy and paste the script bellow with your cluster name and configuration variables:
+
+```
+eksctl create cluster \ 
+--name cloud-dev-capstone \
+--version 1.14 \
+--nodegroup-name standard-workers \
+--node-type t3.medium \
+--nodes 3 \
+--nodes-min 1 \
+--nodes-max 4 \
+--node-ami auto
+```
